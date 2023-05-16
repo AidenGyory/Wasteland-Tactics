@@ -312,8 +312,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e946c52624c37bb4a9dce128a817c881, type: 2}
-  - {fileID: 2100000, guid: e946c52624c37bb4a9dce128a817c881, type: 2}
+  - {fileID: 2100000, guid: 5d4eaadd2b1cacb428800c5c5532cc11, type: 2}
+  - {fileID: 2100000, guid: 5d4eaadd2b1cacb428800c5c5532cc11, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -361,6 +361,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1425dfdb3958c247b8803a75ed6486e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileCoords: {x: 0, y: 0}
+  tileType: 0
+  tileState: 2
+  mapData:
+    tileCoords: {x: 0, y: 0}
+    tileType: 0
+    tileState: 2
   _tileModels:
   - {fileID: 3860547763420793743}
   - {fileID: 1024077587073183651}
@@ -370,13 +377,6 @@ MonoBehaviour:
   - {fileID: 325386288392605215}
   - {fileID: 7973932431685861803}
   - {fileID: 8415466942269002999}
-  mapData:
-    tileCoords: {x: 0, y: 0}
-    tileType: 0
-    tileState: 2
-  tileCoords: {x: 0, y: 0}
-  tileType: 0
-  tileState: 2
 --- !u!64 &2912782130449707893
 MeshCollider:
   m_ObjectHideFlags: 0

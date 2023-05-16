@@ -104,9 +104,10 @@ public class HexTileGeneration : MonoBehaviour
         _tile.transform.parent = transform;
         _tile.name = "HexTile: " + x.ToString() + ", " + z.ToString();
         _tile.GetComponent<TileInfo>().SetTileMapData();
-        tiles.Add(_tile.GetComponent<TileInfo>()); 
+        tiles.Add(_tile.GetComponent<TileInfo>());
 
     }
+
     [PropertyOrder(0)]
     [VerticalGroup("Split1/right")]
     [Button(ButtonSizes.Large), GUIColor(1,1,1)]
@@ -155,7 +156,7 @@ public class HexTileGeneration : MonoBehaviour
 
                         tiles[i].tileType = mapTileCoords.tileType;
                         tiles[i].tileState = mapTileCoords.tileState;
-                        //tiles[i].RefreshTileInfo();
+                        tiles[i].RefreshTileInfo();
 
                         break;
                     }
@@ -179,6 +180,9 @@ public class HexTileGeneration : MonoBehaviour
             CreateMap();
             LoadMap();
         }
-        
+        else if(tiles.Count < 1)
+        {
+            CreateMap();
+        }
     }
 }

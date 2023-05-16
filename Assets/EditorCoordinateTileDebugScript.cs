@@ -16,9 +16,8 @@ public class EditorCoordinateTileDebugScript : MonoBehaviour
         coordsBottomDisplay.text = "" + x + "," + y;
     }
 
-    // Update is called once per frame
     void Start()
     {
-        transform.parent.gameObject.SetActive(false);
+        coordsTopDisplay.transform.parent.gameObject.SetActive(false);
     }
 }

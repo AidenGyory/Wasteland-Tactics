@@ -54,6 +54,11 @@ public class TileInfo : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        RefreshTileInfo();
+    }
+
     public void RefreshTileInfo()
     {
         for (int i = 0; i < _tileModels.Length; i++)
