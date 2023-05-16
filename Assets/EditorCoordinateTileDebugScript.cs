@@ -6,17 +6,19 @@ using UnityEngine;
 public class EditorCoordinateTileDebugScript : MonoBehaviour
 {
 
-    [SerializeField] TMP_Text coordsDisplay; 
+    [SerializeField] TMP_Text coordsTopDisplay; 
+    [SerializeField] TMP_Text coordsBottomDisplay;
 
     // Start is called before the first frame update
     public void DisplayCoords(int x, int y)
     {
-        coordsDisplay.text = "" + x + "," + y;
+        coordsTopDisplay.text = "" + x + "," + y;
+        coordsBottomDisplay.text = "" + x + "," + y;
     }
 
     // Update is called once per frame
     void Start()
     {
-        coordsDisplay.transform.parent.gameObject.SetActive(false);
+        transform.parent.gameObject.SetActive(false);
     }
 }

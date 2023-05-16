@@ -21,7 +21,7 @@ public class HexTileGeneration : MonoBehaviour
     [SerializeField] float _tileZOffset;
     [Space]
     [PropertyOrder(3)]
-    [SerializeField] GameObject hexagonPrefab;
+    [SerializeField] GameObject ThemedHexagonPrefab;
 
     [PropertyOrder(4)]
     public List<TileInfo> tiles = new List<TileInfo>();
@@ -64,12 +64,14 @@ public class HexTileGeneration : MonoBehaviour
             //for each number on the Z Axis (height) 
             for (int z = 0; z <= mapSize.y; z++)
             {
-                if(mapProfile.ThemedHexagonPrefab != null)
+                GameObject _hexagonPrefab = ThemedHexagonPrefab; 
+
+                if (mapProfile != null)
                 {
-                    hexagonPrefab = mapProfile.ThemedHexagonPrefab;
+                    _hexagonPrefab = mapProfile.ThemedHexagonPrefab;
                 }
                 
-                GameObject _tile = Instantiate(hexagonPrefab);
+                GameObject _tile = Instantiate(_hexagonPrefab);
 
                 TileInfo _info = _tile.GetComponent<TileInfo>();
                 EditorCoordinateTileDebugScript _debug = _tile.GetComponent<EditorCoordinateTileDebugScript>();
@@ -153,7 +155,7 @@ public class HexTileGeneration : MonoBehaviour
 
                         tiles[i].tileType = mapTileCoords.tileType;
                         tiles[i].tileState = mapTileCoords.tileState;
-                        tiles[i].RefreshTileInfo();
+                        //tiles[i].RefreshTileInfo();
 
                         break;
                     }
@@ -171,10 +173,12 @@ public class HexTileGeneration : MonoBehaviour
 
     private void Start()
     {
-        if(GenerateLevelOnStart)
+        
+        if (GenerateLevelOnStart)
         {
             CreateMap();
             LoadMap();
         }
+        
     }
 }

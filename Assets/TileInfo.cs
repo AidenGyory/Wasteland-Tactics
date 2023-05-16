@@ -24,17 +24,18 @@ public class TileInfo : MonoBehaviour
         Flippable,
         NotFlippable,
     }
-
-    [SerializeField] Material[] _materials;
+    public Vector2 tileCoords;
     [Space]
-    [SerializeField] Renderer _renderer;
-    [Space]
-    public TileMapData mapData; 
-
-    public Vector2 tileCoords; 
-
     public TileType tileType;
     public TileState tileState;
+    [Space]
+    
+    [Header("Tile Data for Map Generation")]
+    public TileMapData mapData;
+    [SerializeField] GameObject[] _tileModels;
+
+    private TileType _previousTileType; 
+    private TileState _previousTileState;
 
     public void SetTileMapData()
     {
@@ -43,27 +44,39 @@ public class TileInfo : MonoBehaviour
         mapData.tileState = tileState;
     }
 
-    [Button(ButtonSizes.Small)]
-    public void ToggleTile()
+    private void OnValidate()
     {
-
-        tileType += 1;
-
-        if((int)tileType >= Enum.GetValues(typeof(TileType)).Length)
+        if (tileType != _previousTileType || tileState != _previousTileState)
         {
-            tileType = TileType.random;
+            _previousTileType = tileType;
+            _previousTileState = tileState;
+            RefreshTileInfo();
         }
-        RefreshTileInfo();
-        
     }
 
-    [Button(ButtonSizes.Small)]
     public void RefreshTileInfo()
     {
-        foreach (Material _mat in _renderer.materials)
+        for (int i = 0; i < _tileModels.Length; i++)
         {
-            _mat.CopyPropertiesFromMaterial(_materials[(int)tileType]);
+            if(i != (int)tileType)
+            {
+                _tileModels[i].SetActive(false);
+            }
+            else
+            {
+                _tileModels[i].SetActive(true);
+            }
         }
+
+        if(tileState == TileState.AlreadyFlipped)
+        {
+            transform.eulerAngles = new Vector3(90,0,90);
+        }
+        else
+        {
+            transform.eulerAngles = new Vector3(-90, 0, 90);
+        }
+
         SetTileMapData();
     }
 
