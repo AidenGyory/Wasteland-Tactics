@@ -349,7 +349,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1425dfdb3958c247b8803a75ed6486e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _materials: []
+  _materials:
+  - {fileID: 2100000, guid: e946c52624c37bb4a9dce128a817c881, type: 2}
+  - {fileID: 2100000, guid: 29feae4c10c03464e939e35c795a01b5, type: 2}
+  - {fileID: 2100000, guid: 3a1bfc102cc911c47bebe2fb34259f24, type: 2}
+  - {fileID: 2100000, guid: 6c45be4b0603c80468672a6374867a3b, type: 2}
+  - {fileID: 2100000, guid: f7fe83de3f617984bb2a669f5e18d63d, type: 2}
+  - {fileID: 2100000, guid: 83a1a2a06ce1b9643a05bad580efacad, type: 2}
+  - {fileID: 2100000, guid: 837cb766ace32aa499bc3bca1a52d3ca, type: 2}
+  - {fileID: 2100000, guid: bd4953384b4c929498b5e41bdea1d5ef, type: 2}
   _renderer: {fileID: 3899974204465913936}
   tileCoords: {x: 0, y: 0}
   tileType: 0

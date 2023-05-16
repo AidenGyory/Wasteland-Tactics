@@ -27,13 +27,21 @@ public class TileInfo : MonoBehaviour
 
     [SerializeField] Material[] _materials;
     [Space]
-    [SerializeField] Renderer _renderer; 
+    [SerializeField] Renderer _renderer;
     [Space]
+    public TileMapData mapData; 
+
     public Vector2 tileCoords; 
 
     public TileType tileType;
-    public TileState tileState; 
+    public TileState tileState;
 
+    public void SetTileMapData()
+    {
+        mapData.tileCoords = tileCoords;
+        mapData.tileType = tileType;
+        mapData.tileState = tileState;
+    }
 
     [Button(ButtonSizes.Small)]
     public void ToggleTile()
@@ -41,14 +49,24 @@ public class TileInfo : MonoBehaviour
 
         tileType += 1;
 
-        if((int)tileType > Enum.GetValues(typeof(TileType)).Length)
+        if((int)tileType >= Enum.GetValues(typeof(TileType)).Length)
         {
             tileType = TileType.random;
         }
-
-        _renderer.materials[0] = _materials[(int)tileType];
-        _renderer.materials[1] = _materials[(int)tileType];
-
+        RefreshTileInfo();
+        
     }
+
+    [Button(ButtonSizes.Small)]
+    public void RefreshTileInfo()
+    {
+        foreach (Material _mat in _renderer.materials)
+        {
+            _mat.CopyPropertiesFromMaterial(_materials[(int)tileType]);
+        }
+        SetTileMapData();
+    }
+
+    
 
 }
