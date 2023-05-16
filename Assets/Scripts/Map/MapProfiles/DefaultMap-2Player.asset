@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82114e2e5c17a8440af07cf4edba9532, type: 3}
   m_Name: DefaultMap-2Player
   m_EditorClassIdentifier: 
+  ThemedHexagonPrefab: {fileID: 6732172509133915972, guid: 240bad76dd557bc46b4771e58e7d56b1, type: 3}
   mapData:
   - tileCoords: {x: 10, y: 12}
     tileType: 7
