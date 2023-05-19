@@ -72,11 +72,8 @@ public class SelectObjectScript : MonoBehaviour
 
     void AttemptToSelectObject()
     {
-        if(selectedObject != null)
-        {
-            selectedObject.GetComponent<SelectScript>().UnselectObject();
-            selectedObject = null;
-        }
+        selectedObject?.GetComponent<SelectScript>().UnselectObject();
+        selectedObject = null;
 
         if (highlightedObject != null)
         {

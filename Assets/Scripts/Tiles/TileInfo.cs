@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Sirenix.OdinInspector;
-using System;
+using DG.Tweening;
+using MoreMountains.Feedbacks;
 
 public class TileInfo : MonoBehaviour
 {
@@ -37,6 +35,8 @@ public class TileInfo : MonoBehaviour
     private TileType _previousTileType; 
     private TileState _previousTileState;
 
+    public MMF_Player flipFeedback; 
+
     public void SetTileMapData()
     {
         mapData.tileCoords = tileCoords;
@@ -56,6 +56,12 @@ public class TileInfo : MonoBehaviour
 
     private void Start()
     {
+        
+        if(tileType == TileType.random)
+        {
+            int _rand = Random.Range(0, 6);
+            tileType = (TileType)(_rand + 2); 
+        }
         RefreshTileInfo();
     }
 
@@ -89,6 +95,15 @@ public class TileInfo : MonoBehaviour
     public void TileSelected()
     {
         //Plug this into the Select Script "Selectedbject" Event
+
+        if(tileState == TileState.Flippable)
+        {
+            FlipTile();
+        }
+        else
+        {
+            Debug.Log("Can't Flip"); 
+        }
     }
 
     public void TileUnselected()
@@ -106,5 +121,12 @@ public class TileInfo : MonoBehaviour
         //Plug this into the Select Script "UnhighlightObject" Event
     }
 
-
+    void FlipTile()
+    {
+        Debug.Log("Flip This Tile");
+        transform.DOJump(transform.position, 0.2f, 1, 0.3f);
+        flipFeedback?.PlayFeedbacks();
+        tileState = TileState.AlreadyFlipped; 
+        
+    }
 }
