@@ -164,7 +164,7 @@ public class HexTileGeneration : MonoBehaviour
 
                 if (!matchFound)
                 {
-                    Debug.Log("No match found for TileCoords: " + tiles[i].tileCoords);
+                    //Debug.Log("No match found for TileCoords: " + tiles[i].tileCoords);
                     DestroyImmediate(tiles[i].gameObject);
                     tiles.RemoveAt(i);
                 }

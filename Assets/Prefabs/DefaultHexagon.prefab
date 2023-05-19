@@ -251,6 +251,7 @@ GameObject:
   - component: {fileID: 8791725200813581921}
   - component: {fileID: 2912782130449707893}
   - component: {fileID: 2359674255941773147}
+  - component: {fileID: 6864239376493828624}
   m_Layer: 0
   m_Name: DefaultHexagon
   m_TagString: Untagged
@@ -391,6 +392,31 @@ MonoBehaviour:
   - {fileID: 344425927329941008}
   - {fileID: 4505391854680069351}
   - {fileID: 6165062905664515311}
+--- !u!114 &6864239376493828624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6732172509133915972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d388c2c94ce2a0149a3863f420e2bd65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSelectState: 0
+  TriggerWhenObjectIsSelected:
+    m_PersistentCalls:
+      m_Calls: []
+  TriggerWhenObjectIsUnselected:
+    m_PersistentCalls:
+      m_Calls: []
+  TriggerWhenObjectIsHighlighted:
+    m_PersistentCalls:
+      m_Calls: []
+  TriggerWhenObjectIsUnhighlighted:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7031048165510311900
 GameObject:
   m_ObjectHideFlags: 0
