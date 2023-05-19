@@ -26,9 +26,9 @@ public class SelectObjectScript : MonoBehaviour
             //Raycast down to Selectable objects in scene 
             RayCastToObjects();
 
-            if(Input.GetMouseButtonDown(0) && highlightedObject != null) 
+            if(Input.GetMouseButtonDown(0)) 
             {
-                SelectObject(); 
+                AttemptToSelectObject(); 
             }
         }
 
@@ -70,16 +70,21 @@ public class SelectObjectScript : MonoBehaviour
 
     }
 
-    void SelectObject()
+    void AttemptToSelectObject()
     {
         if(selectedObject != null)
         {
             selectedObject.GetComponent<SelectScript>().UnselectObject();
+            selectedObject = null;
         }
 
-        selectedObject = highlightedObject; 
+        if (highlightedObject != null)
+        {
+            selectedObject = highlightedObject;
+            selectedObject.GetComponent<SelectScript>().SelectObject();
+        }
 
-        selectedObject.GetComponent<SelectScript>().SelectObject();
+        
 
     }
 }

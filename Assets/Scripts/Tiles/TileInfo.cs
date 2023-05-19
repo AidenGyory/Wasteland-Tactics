@@ -85,6 +85,7 @@ public class TileInfo : MonoBehaviour
         SetTileMapData();
     }
 
+     
     
 
 }
