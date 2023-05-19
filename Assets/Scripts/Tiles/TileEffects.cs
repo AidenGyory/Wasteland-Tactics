@@ -1,18 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MoreMountains.Feel;
+using MoreMountains.Feedbacks;
 
 public class TileEffects : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void FlipTile()
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

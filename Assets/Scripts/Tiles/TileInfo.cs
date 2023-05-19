@@ -85,7 +85,26 @@ public class TileInfo : MonoBehaviour
         SetTileMapData();
     }
 
-     
     
+    public void TileSelected()
+    {
+        //Plug this into the Select Script "Selectedbject" Event
+    }
+
+    public void TileUnselected()
+    {
+        //Plug this into the Select Script "Unselectedbject" Event
+    }
+
+    public void TileHighlighted()
+    {
+        //Plug this into the Select Script "HighlightObject" Event
+    }
+
+    public void TileUnhighlighted()
+    {
+        //Plug this into the Select Script "UnhighlightObject" Event
+    }
+
 
 }
