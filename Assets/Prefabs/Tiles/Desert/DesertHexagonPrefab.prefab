@@ -563,6 +563,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HazardTile
       objectReference: {fileID: 0}
+    - target: {fileID: 1009527748241020, guid: 3b1bf2bdbb915ea458933b1fe51224fc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4450519444070790, guid: 3b1bf2bdbb915ea458933b1fe51224fc, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -630,6 +634,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EmptyTile
       objectReference: {fileID: 0}
+    - target: {fileID: 1513751033591328, guid: acb86a1738de1364cad1d7ac4f60f2ed, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4629484508005506, guid: acb86a1738de1364cad1d7ac4f60f2ed, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -696,6 +704,10 @@ PrefabInstance:
     - target: {fileID: 1388657164994780, guid: dcf682d7e73d63e4db2f3cea8bdac239, type: 3}
       propertyPath: m_Name
       value: SpawnTile
+      objectReference: {fileID: 0}
+    - target: {fileID: 1388657164994780, guid: dcf682d7e73d63e4db2f3cea8bdac239, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4116196927331254, guid: dcf682d7e73d63e4db2f3cea8bdac239, type: 3}
       propertyPath: m_RootOrder
@@ -854,6 +866,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PowerTile
       objectReference: {fileID: 0}
+    - target: {fileID: 1991328963452212, guid: dc899da57486f4c4fa53c3bb800568d6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4559605514125194, guid: dc899da57486f4c4fa53c3bb800568d6, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -920,6 +936,10 @@ PrefabInstance:
     - target: {fileID: 1411991481385686, guid: d4c13e0a31c558d44a8f388a79193a00, type: 3}
       propertyPath: m_Name
       value: ResourceTile
+      objectReference: {fileID: 0}
+    - target: {fileID: 1411991481385686, guid: d4c13e0a31c558d44a8f388a79193a00, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4578241568717674, guid: d4c13e0a31c558d44a8f388a79193a00, type: 3}
       propertyPath: m_RootOrder
@@ -1145,6 +1165,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RewardTile
       objectReference: {fileID: 0}
+    - target: {fileID: 1500024321721894, guid: 3c21bb32e8e806e4fa9258820dfebadf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4136844178125394, guid: 3c21bb32e8e806e4fa9258820dfebadf, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -1211,6 +1235,10 @@ PrefabInstance:
     - target: {fileID: 1307014298151480, guid: f7ff2900d66e7bc4fa8b3214486aa170, type: 3}
       propertyPath: m_Name
       value: MountainTile
+      objectReference: {fileID: 0}
+    - target: {fileID: 1307014298151480, guid: f7ff2900d66e7bc4fa8b3214486aa170, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4462855419072100, guid: f7ff2900d66e7bc4fa8b3214486aa170, type: 3}
       propertyPath: m_RootOrder
