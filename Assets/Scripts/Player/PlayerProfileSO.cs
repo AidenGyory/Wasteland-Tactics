@@ -10,14 +10,6 @@ public enum FactionType
     CyberSwarm
 }
 
-public enum FactionColour
-{
-    Blue,
-    Red,
-    Yellow,
-    Green
-}
-
 public enum SuperPowerType
 {
     //New Eden
@@ -45,10 +37,11 @@ public enum SuperPowerType
 [CreateAssetMenu(fileName = "New Player Profile", menuName = "Wasteland Tactics/Players/Create New Player Profile")]
 public class PlayerProfileSO : ScriptableObject
 {
-    public string playerProfileName; 
-
+    public string playerProfileName;
+    [Space]
+    public ColourProfileSO colourProfile;
+    [Space]
     public FactionType playerFaction;
-    public FactionColour playerColour;
     public SuperPowerType playerSuperPower;
 
     //Add AI controller Profile for difficulty levels etc. 

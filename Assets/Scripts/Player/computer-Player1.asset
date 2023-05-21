@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: computer-Player1
   m_EditorClassIdentifier: 
   playerProfileName: 'Player 2 (CyberSwarm) '
+  colourProfile: {fileID: 11400000, guid: cc31154a1cc044c4a9e7b5b49b59a993, type: 2}
   playerFaction: 3
-  playerColour: 1
   playerSuperPower: 9

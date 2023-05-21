@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: default-Player1
   m_EditorClassIdentifier: 
   playerProfileName: default-Player1
+  colourProfile: {fileID: 11400000, guid: d463eeaecd7d7b54a84c91bee0b6de88, type: 2}
   playerFaction: 0
   playerColour: 0
   playerSuperPower: 0

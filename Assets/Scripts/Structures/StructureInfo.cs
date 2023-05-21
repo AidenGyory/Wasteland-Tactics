@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public enum StructureType
@@ -30,14 +31,59 @@ public class StructureInfo : MonoBehaviour
     [Space]
     public TileInfo OccupiedTile;
     [Space]
-    [SerializeField] Renderer[] modelRenderers;
+    [SerializeField] Renderer[] modelRenderer;
+    [SerializeField] Renderer outlineRenderer; 
 
     public void UpdateMaterials()
     {
-        for (int i = 0; i < modelRenderers.Length; i++)
+        List<Material> _materials = new List<Material>();
+
+        switch (structureType)
         {
-            
+            case StructureType.Headquarters:
+                _materials.AddRange(owner.playerProfile.colourProfile.Headquarters);
+                break;
+            case StructureType.Outpost:
+                _materials.AddRange(owner.playerProfile.colourProfile.Outpost);
+                break;
+            case StructureType.Generator:
+                _materials.AddRange(owner.playerProfile.colourProfile.Generator);
+                break;
+            case StructureType.Refinery:
+                _materials.AddRange(owner.playerProfile.colourProfile.Refinery);
+                break;
+            case StructureType.ResearchLab:
+                _materials.AddRange(owner.playerProfile.colourProfile.ResearchLab);
+                break;
+            default:
+                break;
         }
+
+
+        if(_materials.Count > 1)
+        {
+            for (int i = 0; i < _materials.Count; i++)
+            {
+                if (modelRenderer[i]?.materials.Length > 1)
+                {
+                    for (int j = 0; j < modelRenderer[i].materials.Length; j++)
+                    {
+                        modelRenderer[i].materials[j] = _materials[i];
+                    }
+                }
+                else
+                {
+                    modelRenderer[i].material = _materials[i];
+                }
+            }
+        }
+        else
+        {
+            modelRenderer[0].material = _materials[0];
+        }
+        
+        outlineRenderer.material = owner.playerProfile.colourProfile.OutlineMaterial;
+        outlineRenderer.gameObject.SetActive(false); 
     }
 
     public void SelectStructure()

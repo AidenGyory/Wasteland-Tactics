@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deeddea52a1b7a743a199d56a1f2dafc, type: 3}
   m_Name: default-Player2
   m_EditorClassIdentifier: 
-  playerProfileName: 
+  playerProfileName: default-Player2
+  colourProfile: {fileID: 11400000, guid: cc31154a1cc044c4a9e7b5b49b59a993, type: 2}
   playerFaction: 0
-  playerColour: 0
+  playerSuperPower: 0
