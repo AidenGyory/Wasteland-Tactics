@@ -118,7 +118,7 @@ public class TileInfo : MonoBehaviour
     
     public void TileSelected()
     {
-        Debug.Log("selected tile at: " + tileCoords);
+        //Debug.Log("selected tile at: " + tileCoords);
         //Plug this into the Select Script "Selectedbject" Event
 
         if (tileState == TileState.Flippable)
@@ -135,28 +135,28 @@ public class TileInfo : MonoBehaviour
 
     public void TileUnselected()
     {
-        Debug.Log("unselected tile at: " + tileCoords);
+        //Debug.Log("unselected tile at: " + tileCoords);
         GetComponent<Renderer>().material.DOColor(_bottomMaterialColor, 0.3f);
         _tileModels[(int)tileType].GetComponentInChildren<Renderer>().material.DOColor(_topMaterialColor, 0.3f);
     }
 
     public void TileHighlighted()
     {
-        Debug.Log("highlighted tile at: " + tileCoords);
+        //Debug.Log("highlighted tile at: " + tileCoords);
         GetComponent<Renderer>().material.DOColor(_bottomMaterialColor * SelectObjectScript.Instance.brightness, 0.3f);
         _tileModels[(int)tileType].GetComponentInChildren<Renderer>().material.DOColor(_topMaterialColor * SelectObjectScript.Instance.brightness, 0.3f);
     }
 
     public void TileUnhighlighted()
     {
-        Debug.Log("unhighlighted tile at: " + tileCoords);
+        //Debug.Log("unhighlighted tile at: " + tileCoords);
         GetComponent<Renderer>().material.DOColor(_bottomMaterialColor, 0.3f);
         _tileModels[(int)tileType].GetComponentInChildren<Renderer>().material.DOColor(_topMaterialColor, 0.3f);
     }
 
     void FlipTile()
     {
-        Debug.Log("Flip This Tile");
+        //Debug.Log("Flip This Tile");
         transform.DOJump(transform.position, 0.2f, 1, 0.3f);
         flipFeedback?.PlayFeedbacks();
         tileState = TileState.AlreadyFlipped; 

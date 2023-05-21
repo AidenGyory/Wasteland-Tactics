@@ -1,4 +1,4 @@
-﻿using DG.Tweening;
+﻿using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(CameraController))]
@@ -27,22 +27,15 @@ public class CameraFollow : MonoBehaviour
 
     void LateUpdate()
     {
-        targetPosition = followTarget.position + cameraOffset;
+        Vector3 _targetPosition = followTarget.position + cameraOffset; 
 
-        if (follow)
-        {
-            Vector3 smoothPosition = Vector3.SmoothDamp(transform.position, targetPosition, ref _smoothVel, smoothSpeed);
-
-            transform.position = smoothPosition;
-
-            transform.LookAt(followTarget.position);
-        }
-
+        // Y MOVEMENT
         if (canScroll)
         {
-            if (Input.mouseScrollDelta.magnitude > 0.1f)
+            if(Input.mouseScrollDelta.magnitude > 0)
             {
-                cameraOffset.y = cameraOffset.y + Input.mouseScrollDelta.y;
+                cameraOffset.y += Input.mouseScrollDelta.y;
+
                 if (cameraOffset.y > topOffsetClamp)
                 {
                     cameraOffset.y = topOffsetClamp;
@@ -51,15 +44,22 @@ public class CameraFollow : MonoBehaviour
                 {
                     cameraOffset.y = bottomOffsetClamp;
                 }
-                if (Vector3.Distance(transform.position, followTarget.position + cameraOffset) >= 0.05f)
-                {
-                    Vector3 targetPosition = followTarget.position + cameraOffset;
-                    Vector3 smoothPosition = Vector3.SmoothDamp(transform.position, targetPosition, ref _smoothVel, smoothSpeed);
+            }
+        }
 
-                    transform.position = smoothPosition;
+        // X and Z MOVEMENT 
+        if (follow)
+        {
+            if(transform.position !=  _targetPosition)
+            {
+                transform.position = Vector3.SmoothDamp(transform.position, _targetPosition, ref _smoothVel, smoothSpeed);
+            }
 
-                    transform.LookAt(followTarget.position);
-                }
+            float distance = Mathf.Abs(transform.position.y - _targetPosition.y);
+
+            if (distance > 0.05f)
+            {
+                transform.LookAt(followTarget.position);
             }
         }
     }
@@ -75,6 +75,6 @@ public class CameraFollow : MonoBehaviour
         followTarget.GetComponent<MoveScript>().lerpPosition = _target;
         followTarget.GetComponent<MoveScript>().isLerping = true;
         GetComponent<CameraController>().SetCameraMode(CameraController.CameraMode.Focused);
-        transform.DOLookAt(_target, 1f);
+        
     }
 }

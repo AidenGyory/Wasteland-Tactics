@@ -19,7 +19,9 @@ public class MoveScript : MonoBehaviour
 
             transform.position = _currentPosition;
 
-            if(transform.position == lerpPosition )
+            Camera.main.transform.LookAt(lerpPosition);
+
+            if (transform.position == lerpPosition )
             {
                 isLerping = false;
             }
@@ -57,6 +59,7 @@ public class MoveScript : MonoBehaviour
         if (isDragging)
         {
             Vector3 currentMousePosition = Input.mousePosition;
+
             Vector3 mouseMovement = currentMousePosition - dragStartPosition;
 
             float mouseX = mouseMovement.x;
@@ -65,7 +68,8 @@ public class MoveScript : MonoBehaviour
             Vector3 movement = new Vector3(mouseX, 0f, mouseY);
             movement.Normalize();
 
-            transform.Translate(-movement * moveSpeed * Time.deltaTime);
+            
+            transform.Translate(-movement * moveSpeed  * Time.deltaTime);
         }
     }
 
