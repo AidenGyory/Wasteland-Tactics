@@ -9,7 +9,8 @@ public class TileInfo : MonoBehaviour
         random, //gray 
         spawnTile, //Green
         empty, //white
-        resource, //blue
+        resource1, //blue
+        resource2, //light blue
         power, //yellow
         hazard, //red
         reward, //purple
@@ -22,6 +23,19 @@ public class TileInfo : MonoBehaviour
         Flippable,
         NotFlippable,
     }
+
+    public enum tileOwners
+    {
+        none, 
+        player1,
+        player2,
+        player3,
+        player4,
+    }
+    public PlayerManager owner;
+    [Space]
+    [Header("Start up Tile Data")]
+    public tileOwners AssignedTileOwnerForSetup;
     public Vector2 tileCoords;
     [Space]
     public TileType tileType;
@@ -35,13 +49,18 @@ public class TileInfo : MonoBehaviour
     private TileType _previousTileType; 
     private TileState _previousTileState;
 
-    public MMF_Player flipFeedback; 
+    public MMF_Player flipFeedback;
 
-    public void SetTileMapData()
+    
+    private Color _bottomMaterialColor; 
+    private Color _topMaterialColor;
+
+    public void SaveTileDataToMapData()
     {
         mapData.tileCoords = tileCoords;
         mapData.tileType = tileType;
         mapData.tileState = tileState;
+        mapData.AssignedTileOwnerOnStart = AssignedTileOwnerForSetup; 
     }
 
     private void OnValidate()
@@ -54,15 +73,20 @@ public class TileInfo : MonoBehaviour
         }
     }
 
+
     private void Start()
     {
         
         if(tileType == TileType.random)
         {
-            int _rand = Random.Range(0, 6);
+            int _rand = Random.Range(0, 7);
             tileType = (TileType)(_rand + 2); 
         }
         RefreshTileInfo();
+
+        _bottomMaterialColor = GetComponent<Renderer>().material.color;
+        _topMaterialColor = _tileModels[(int)tileType].GetComponentInChildren<Renderer>().material.color;
+        
     }
 
     public void RefreshTileInfo()
@@ -81,44 +105,52 @@ public class TileInfo : MonoBehaviour
 
         if(tileState == TileState.AlreadyFlipped)
         {
-            transform.eulerAngles = new Vector3(90,0,90);
+            transform.eulerAngles = new Vector3(0,0,0);
         }
         else
         {
-            transform.eulerAngles = new Vector3(-90, 0, 90);
+            transform.eulerAngles = new Vector3(-180, 0, 0);
         }
 
-        SetTileMapData();
+        SaveTileDataToMapData(); // - Save current info to MapData Constructor for easy "Save" mode
     }
 
     
     public void TileSelected()
     {
+        Debug.Log("selected tile at: " + tileCoords);
         //Plug this into the Select Script "Selectedbject" Event
 
-        if(tileState == TileState.Flippable)
+        if (tileState == TileState.Flippable)
         {
             FlipTile();
         }
         else
         {
-            Debug.Log("Can't Flip"); 
+            Debug.Log("Can't Flip");
+            GetComponent<Renderer>().material.DOColor(_bottomMaterialColor * SelectObjectScript.Instance.brightness, 0.2f).SetLoops(-1, LoopType.Yoyo);
+            _tileModels[(int)tileType].GetComponentInChildren<Renderer>().material.DOColor(_topMaterialColor * SelectObjectScript.Instance.brightness, 0.2f).SetLoops(-1, LoopType.Yoyo);
         }
     }
 
     public void TileUnselected()
     {
+        Debug.Log("unselected tile at: " + tileCoords);
         //Plug this into the Select Script "Unselectedbject" Event
     }
 
     public void TileHighlighted()
     {
-        //Plug this into the Select Script "HighlightObject" Event
+        Debug.Log("highlighted tile at: " + tileCoords);
+        GetComponent<Renderer>().material.DOColor(_bottomMaterialColor * SelectObjectScript.Instance.brightness, 0.3f);
+        _tileModels[(int)tileType].GetComponentInChildren<Renderer>().material.DOColor(_topMaterialColor * SelectObjectScript.Instance.brightness, 0.3f);
     }
 
     public void TileUnhighlighted()
     {
-        //Plug this into the Select Script "UnhighlightObject" Event
+        Debug.Log("unhighlighted tile at: " + tileCoords);
+        GetComponent<Renderer>().material.DOColor(_bottomMaterialColor, 0.3f);
+        _tileModels[(int)tileType].GetComponentInChildren<Renderer>().material.DOColor(_topMaterialColor, 0.3f);
     }
 
     void FlipTile()

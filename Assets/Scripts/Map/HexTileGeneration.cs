@@ -8,8 +8,8 @@ public class HexTileGeneration : MonoBehaviour
     [PropertySpace(SpaceBefore = 15, SpaceAfter = 10)]
     [Title("Map Profile Data Settings")]
     public MapProfileSO mapProfile;
-    public bool GenerateLevelOnStart; 
     [InfoBox("WARNING: [SaveMap] will override Map Profile!!")]
+    public bool GenerateLevelOnStart; 
     [PropertyOrder(1)]
     [Header("Map Settings")]
     [ReadOnly] public Vector2 mapSize = new Vector2 (10, 20);
@@ -25,6 +25,9 @@ public class HexTileGeneration : MonoBehaviour
 
     [PropertyOrder(4)]
     public List<TileInfo> tiles = new List<TileInfo>();
+
+    [PropertySpace(SpaceAfter = 10)]
+    public List<TileInfo> spawnTiles = new List<TileInfo>();
 
     [PropertyOrder(-1)]
     [VerticalGroup("Split/right")]
@@ -103,7 +106,7 @@ public class HexTileGeneration : MonoBehaviour
     {
         _tile.transform.parent = transform;
         _tile.name = "HexTile: " + x.ToString() + ", " + z.ToString();
-        _tile.GetComponent<TileInfo>().SetTileMapData();
+        _tile.GetComponent<TileInfo>().SaveTileDataToMapData();
         tiles.Add(_tile.GetComponent<TileInfo>());
 
     }
@@ -125,7 +128,7 @@ public class HexTileGeneration : MonoBehaviour
 
             foreach (TileInfo tile in tilesToSave)
             {
-                tile.SetTileMapData();
+                tile.SaveTileDataToMapData();
                 mapProfile.mapData.Add(tile.mapData);
             }
             Debug.LogWarning("Map Profile saved to: " + mapProfile.name);
@@ -136,8 +139,12 @@ public class HexTileGeneration : MonoBehaviour
     [Button(ButtonSizes.Large), GUIColor(1, 1, 1)]
     public void LoadMap()
     {
-        if(tiles.Count < 1)
+        //C;ear Current selection of SpawnTiles
+        spawnTiles.Clear();
+
+        if (tiles.Count < 1)
         {
+            // Throw Error if in EDITOR and Map tempalte is not loaded. 
             Debug.LogWarning("Please [Create Map] before loading map Data"); 
         }
         else
@@ -156,7 +163,13 @@ public class HexTileGeneration : MonoBehaviour
 
                         tiles[i].tileType = mapTileCoords.tileType;
                         tiles[i].tileState = mapTileCoords.tileState;
-                        tiles[i].RefreshTileInfo();
+                        tiles[i].AssignedTileOwnerForSetup = mapTileCoords.AssignedTileOwnerOnStart;
+                        tiles[i].RefreshTileInfo(); // - Cosmetic Refresh of tile asset for visual representation. 
+
+                        if (tiles[i].tileType == TileInfo.TileType.spawnTile)
+                        {
+                            spawnTiles.Add(tiles[i]);
+                        }
 
                         break;
                     }
@@ -172,6 +185,18 @@ public class HexTileGeneration : MonoBehaviour
         }
     }
 
+    [Button(ButtonSizes.Large), GUIColor(1, 1, 1)]
+    public void ResetAllUnflippedTilesToRandom()
+    {
+        for (int i = 0; i < tiles.Count; i++)
+        {
+            if (tiles[i].tileState != TileInfo.TileState.AlreadyFlipped)
+            {
+                tiles[i].tileType = TileInfo.TileType.random; 
+            }
+        }
+    }
+
     private void Start()
     {
         
@@ -179,6 +204,7 @@ public class HexTileGeneration : MonoBehaviour
         {
             CreateMap();
             LoadMap();
+            GameManager.Instance?.StartGame(); 
         }
         else if(tiles.Count < 1)
         {

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ public class SelectObjectScript : MonoBehaviour
 
     public SelectScript highlightedObject;
     public SelectScript selectedObject;
+
+    public float brightness; 
 
     //Raycast for Object Selection
     private Ray _ray;

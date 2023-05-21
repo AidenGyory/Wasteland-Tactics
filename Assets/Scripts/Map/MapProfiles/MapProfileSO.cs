@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Sirenix.OdinInspector; 
 
 [System.Serializable]
 public class TileMapData
@@ -11,12 +10,14 @@ public class TileMapData
     public Vector2 tileCoords;
     public TileInfo.TileType tileType;
     public TileInfo.TileState tileState;
+    public TileInfo.tileOwners AssignedTileOwnerOnStart;
 
-    public TileMapData(Vector2 tileCoords, TileInfo.TileType tileType, TileInfo.TileState tileState)
+    public TileMapData(Vector2 tileCoords, TileInfo.TileType tileType, TileInfo.TileState tileState, TileInfo.tileOwners tileOwner)
     {
         this.tileCoords = tileCoords;
         this.tileType = tileType;
         this.tileState = tileState;
+        this.AssignedTileOwnerOnStart = tileOwner;
     }
 }
 
