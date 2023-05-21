@@ -1,5 +1,5 @@
+using DG.Tweening;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 public enum StructureType
@@ -32,8 +32,10 @@ public class StructureInfo : MonoBehaviour
     public TileInfo OccupiedTile;
     [Space]
     [SerializeField] Renderer[] modelRenderer;
-    [SerializeField] Renderer outlineRenderer; 
+    [SerializeField] Renderer outlineRenderer;
+    private Color originalOutlineColour; 
 
+    
     public void UpdateMaterials()
     {
         List<Material> _materials = new List<Material>();
@@ -83,26 +85,28 @@ public class StructureInfo : MonoBehaviour
         }
         
         outlineRenderer.material = owner.playerProfile.colourProfile.OutlineMaterial;
-        outlineRenderer.gameObject.SetActive(false); 
+        originalOutlineColour = outlineRenderer.material.color; 
+        outlineRenderer.material.color = Color.clear; 
     }
 
     public void SelectStructure()
     {
-
+        Camera.main.GetComponent<CameraFollow>().LerpToPosition(this.transform.position); 
     }
 
     public void UnselectStructure()
     {
-
+        
     }
 
     public void HighlightStructure()
     {
-
+        outlineRenderer.material.DOColor(originalOutlineColour, 0.3f);
     }
 
     public void UnhighlightStructure()
     {
+        outlineRenderer.material.DOColor(Color.clear, 0.3f);
 
     }
 

@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Player: " + currentPlayersTurn.playerProfile.playerProfileName + " Turn Start!");
         currentPlayersTurn.StartTurn(); 
     }
+    [Button(ButtonSizes.Large), GUIColor(1, 1, 1)]
     public void EndTurnSequence()
     {
         if(playerTurnIndex +1 > players.Count) 
@@ -103,7 +104,10 @@ public class GameManager : MonoBehaviour
         _placeStructure.GetComponent<StructurePlacementScript>().structureIndex = _structureIndex;
         _placeStructure.GetComponent<StructurePlacementScript>().playerInfo = _playerInfo;
         _placeStructure.GetComponent<StructurePlacementScript>().PlaceStructure(); 
-        Destroy(_placeStructure); 
+
+        //Destroy(_placeStructure); 
     }
+
+
 
 }

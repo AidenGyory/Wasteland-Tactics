@@ -136,7 +136,8 @@ public class TileInfo : MonoBehaviour
     public void TileUnselected()
     {
         Debug.Log("unselected tile at: " + tileCoords);
-        //Plug this into the Select Script "Unselectedbject" Event
+        GetComponent<Renderer>().material.DOColor(_bottomMaterialColor, 0.3f);
+        _tileModels[(int)tileType].GetComponentInChildren<Renderer>().material.DOColor(_topMaterialColor, 0.3f);
     }
 
     public void TileHighlighted()

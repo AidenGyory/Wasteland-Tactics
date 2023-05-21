@@ -39,7 +39,8 @@ public class StructurePlacementScript : MonoBehaviour
         _structure.transform.position = transform.position;
         StructureInfo _info = _structure.GetComponent<StructureInfo>(); 
         _info.owner = playerInfo;
-        _info.UpdateMaterials(); 
+        _info.UpdateMaterials();
+        playerInfo.AddorRemoveStructure(_info, true); 
 
 
         _structure.transform.SetParent(playerInfo.transform);

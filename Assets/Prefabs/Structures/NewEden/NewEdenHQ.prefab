@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f403707cea154ba4db2781edee1d2cdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  structureName: Head Quarters
+  structureName: New Eden Command Center
   faction: 0
   structureType: 0
   owner: {fileID: 0}
@@ -79,17 +79,41 @@ MonoBehaviour:
   currentSelectState: 0
   TriggerWhenObjectIsSelected:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6987360624214554100}
+        m_TargetAssemblyTypeName: StructureInfo, Assembly-CSharp
+        m_MethodName: SelectStructure
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   TriggerWhenObjectIsUnselected:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6987360624214554100}
+        m_TargetAssemblyTypeName: StructureInfo, Assembly-CSharp
+        m_MethodName: UnselectStructure
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   TriggerWhenObjectIsHighlighted:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5938095367128210998}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 6987360624214554100}
+        m_TargetAssemblyTypeName: StructureInfo, Assembly-CSharp
+        m_MethodName: HighlightStructure
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -101,10 +125,10 @@ MonoBehaviour:
   TriggerWhenObjectIsUnhighlighted:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5938095367128210998}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 6987360624214554100}
+        m_TargetAssemblyTypeName: StructureInfo, Assembly-CSharp
+        m_MethodName: UnhighlightStructure
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -270,7 +294,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3a1bfc102cc911c47bebe2fb34259f24, type: 2}
+  - {fileID: 2100000, guid: a047f50de46a03a4498ae13c4b68f789, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

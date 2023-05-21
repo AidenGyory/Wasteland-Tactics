@@ -14,7 +14,7 @@ public class PlayerManager : MonoBehaviour
     public int ExplorationPointsMax; //The maximum amount of points you have to flip tiles 
     public int ExplorationPointsLeft; //How many points you haveleft this turn. 
     [Space]
-    public int MetalScrapAmount; //The Amount of MetalScrap Resources you have in Total 
+    public int ResourceAmount; //The Amount of MetalScrap Resources you have in Total 
     [Space]
     public int maintenanceResource; // NewEden: Oxygen, SAPIEN: Power, StarBorn: Energon, CyberSwarm: Bio-Matter
     [Space]
@@ -24,6 +24,8 @@ public class PlayerManager : MonoBehaviour
     public UnityEvent playerRelics; 
     public UnityEvent playerMalfunctions;
 
+    public List<StructureInfo> structuresOwnedByPlayer;
+
     public void StartTurn()
     {
         if(turn < 1)
@@ -32,6 +34,8 @@ public class PlayerManager : MonoBehaviour
         }
 
         turn += 1;
+        
+        CollectResources(); 
     }
 
     private void FirstTurnSequence()
@@ -86,5 +90,29 @@ public class PlayerManager : MonoBehaviour
     {
         Debug.Log("Can Spawn HQ"); 
         GameManager.Instance?.PlaceBuilding(transform.position, (int)StructureType.Headquarters, this);
+    }
+
+    public void AddorRemoveStructure(StructureInfo _info, bool adding)
+    {
+        if(adding)
+        {
+            structuresOwnedByPlayer.Add(_info); 
+        }
+        else
+        {
+            structuresOwnedByPlayer.Remove(_info); 
+        }
+    }
+
+    void CollectResources()
+    {
+        for (int i = 0; i < structuresOwnedByPlayer.Count; i++)
+        {
+            if (structuresOwnedByPlayer[i].resourcesGeneratedPerTurn > 0)
+            {
+                ResourceAmount += structuresOwnedByPlayer[i].resourcesGeneratedPerTurn;
+                Debug.Log(structuresOwnedByPlayer[i].structureName + " Generated " + structuresOwnedByPlayer[i].resourcesGeneratedPerTurn + " Resources"); 
+            }
+        }
     }
 }
