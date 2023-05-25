@@ -8,69 +8,69 @@ public class MoveScript : MonoBehaviour
     public Vector3 lerpPosition;
     public bool isLerping; 
 
+    private bool _isDragging = false;
+    private Vector3 _dragStartPosition;
+    private CharacterController _characterController;
+
+    private void Start()
+    {
+        _characterController = GetComponent<CharacterController>();
+    }
+
     private void Update()
     {
         HandleKeyboardInput();
         HandleMouseInput();
 
-        if(isLerping)
+        if (!isLerping) return;
+        
+        var currentPosition = Vector3.Lerp(transform.position, lerpPosition, lerpSpeed * Time.deltaTime);
+
+        transform.position = currentPosition;
+
+        if (transform.position == lerpPosition )
         {
-            Vector3 _currentPosition = Vector3.Lerp(transform.position, lerpPosition, lerpSpeed * Time.deltaTime);
-
-            transform.position = _currentPosition;
-
-            Camera.main.transform.LookAt(lerpPosition);
-
-            if (transform.position == lerpPosition )
-            {
-                isLerping = false;
-            }
+            isLerping = false;
         }
     }
 
     private void HandleKeyboardInput()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        var horizontalInput = Input.GetAxis("Horizontal");
+        var verticalInput = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput);
+        var movement = new Vector3(horizontalInput, 0f, verticalInput);
         movement.Normalize();
-
-        transform.Translate(movement * moveSpeed * Time.deltaTime);
-
-        //isLerping = false;
+        var movementSpeed = movement * (moveSpeed * Time.deltaTime);
+        
+        _characterController.Move(movementSpeed);
     }
 
-    private bool isDragging = false;
-    private Vector3 dragStartPosition;
-
+    
     private void HandleMouseInput()
     {
         if (Input.GetMouseButtonDown(1))
         {
-            isDragging = true;
-            dragStartPosition = Input.mousePosition;
+            _isDragging = true;
+            _dragStartPosition = Input.mousePosition;
         }
         else if (Input.GetMouseButtonUp(1))
         {
-            isDragging = false;
+            _isDragging = false;
         }
 
-        if (isDragging)
-        {
-            Vector3 currentMousePosition = Input.mousePosition;
+        if (!_isDragging) return;
+        
+        var currentMousePosition = Input.mousePosition;
+        var mouseMovement = currentMousePosition - _dragStartPosition;
 
-            Vector3 mouseMovement = currentMousePosition - dragStartPosition;
+        var mouseX = mouseMovement.x;
+        var mouseY = mouseMovement.y;
 
-            float mouseX = mouseMovement.x;
-            float mouseY = mouseMovement.y;
-
-            Vector3 movement = new Vector3(mouseX, 0f, mouseY);
-            movement.Normalize();
-
-            
-            transform.Translate(-movement * moveSpeed  * Time.deltaTime);
-        }
+        var movement = new Vector3(mouseX, 0f, mouseY);
+        movement.Normalize();
+        
+        transform.Translate(-movement * (moveSpeed * Time.deltaTime));
     }
 
 

@@ -2,21 +2,40 @@ using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
-    public bool randomiseTurnOrder;
-    [InfoBox("WARNING: IF EMPTY, PLAYER START ORDER WILL BE RANDOM")]
-    public List<PlayerManager> players;
-
-    public PlayerManager currentPlayersTurn; 
-    private int playerTurnIndex; 
-    public int globalTurnCounter;
     [Space]
-    public GameObject StructurePlacementPrefab; 
-
+    [HideInInspector]
+    public bool randomiseTurnOrder;
+    
+    [PropertyOrder(-1)]
+    [HideIf("randomiseTurnOrder")]
+    [Button(ButtonSizes.Large), GUIColor(0.5f, 1, 0.5f)]
+    private void StandardTurnOrder()
+    {
+        this.randomiseTurnOrder = !this.randomiseTurnOrder;
+    }
+    
+    [PropertyOrder(-1)]
+    [ShowIf("randomiseTurnOrder")]
+    [Button(ButtonSizes.Large), GUIColor(1f, 1, 0.5f)]
+    private void RandomiseTurnOrder()
+    {
+        this.randomiseTurnOrder = !this.randomiseTurnOrder;
+    }
+    [InfoBox(" VV -- WARNING: IF 'Players' COMPONENT IS EMPTY, PLAYERS START ORDER WILL BE RANDOM ONCE FOUND-- VV")]
+    [Space]
+    public List<PlayerManager> players;
+    [Space]
+    public PlayerManager currentPlayersTurn; 
+    public int globalTurnCounter;
+    [PropertySpace(SpaceBefore = 15, SpaceAfter = 10)]
+    public GameObject structurePlacementPrefab; 
+    
+    private int _playerTurnIndex;
     void Awake()
     {
         Instance = this;
@@ -32,7 +51,7 @@ public class GameManager : MonoBehaviour
 
         SetPlayerIndex(); 
 
-        playerTurnIndex = 0;
+        _playerTurnIndex = 0;
         globalTurnCounter += 1; 
 
         BeginNewTurnSequence(); 
@@ -78,28 +97,28 @@ public class GameManager : MonoBehaviour
     }
     public void BeginNewTurnSequence()
     {
-        currentPlayersTurn = players[playerTurnIndex];
+        currentPlayersTurn = players[_playerTurnIndex];
         Debug.Log("Player: " + currentPlayersTurn.playerProfile.playerProfileName + " Turn Start!");
         currentPlayersTurn.StartTurn(); 
     }
     [Button(ButtonSizes.Large), GUIColor(1, 1, 1)]
     public void EndTurnSequence()
     {
-        if(playerTurnIndex +1 > players.Count) 
+        if(_playerTurnIndex +1 > players.Count) 
         { 
-            playerTurnIndex = 0;
+            _playerTurnIndex = 0;
             globalTurnCounter += 1;
         } 
         else
         {
-            playerTurnIndex += 1;
+            _playerTurnIndex += 1;
         }
         BeginNewTurnSequence();
     }
 
     public void PlaceBuilding(Vector3 _position, int _structureIndex, PlayerManager _playerInfo)
     {
-        GameObject _placeStructure = Instantiate(StructurePlacementPrefab); 
+        GameObject _placeStructure = Instantiate(structurePlacementPrefab); 
         _placeStructure.transform.position = _position;
         _placeStructure.GetComponent<StructurePlacementScript>().structureIndex = _structureIndex;
         _placeStructure.GetComponent<StructurePlacementScript>().playerInfo = _playerInfo;

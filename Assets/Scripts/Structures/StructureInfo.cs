@@ -91,7 +91,7 @@ public class StructureInfo : MonoBehaviour
 
     public void SelectStructure()
     {
-        Camera.main.GetComponent<CameraFollow>().LerpToPosition(this.transform.position); 
+        
     }
 
     public void UnselectStructure()

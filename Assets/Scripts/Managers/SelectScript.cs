@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 
 public class SelectScript : MonoBehaviour
@@ -11,13 +13,25 @@ public class SelectScript : MonoBehaviour
         Selected,
     }
 
+    [SerializeField] private bool canOutline;
+    
     [Header("Object State Info")]
     public SelectState currentSelectState;
 
-    [SerializeField] UnityEvent TriggerWhenObjectIsSelected; 
-    [SerializeField] UnityEvent TriggerWhenObjectIsUnselected;
-    [SerializeField] UnityEvent TriggerWhenObjectIsHighlighted;
-    [SerializeField] UnityEvent TriggerWhenObjectIsUnhighlighted;
+    [SerializeField] private UnityEvent triggerWhenObjectIsSelected; 
+    [SerializeField] private UnityEvent triggerWhenObjectIsUnselected;
+    [SerializeField] private UnityEvent triggerWhenObjectIsHighlighted;
+    [SerializeField] private UnityEvent triggerWhenObjectIsNoLongerHighlighted;
+    
+    private GameObject _outline;
+
+
+    private void Start()
+    {
+        if (!canOutline) {return;}
+
+        transform.GetComponentInChildren<OutlineCreatorScript>().enabled = true;
+    }
 
     public void HighlightObject()
     {
@@ -26,7 +40,9 @@ public class SelectScript : MonoBehaviour
 
         // Set state to highlighted 
         currentSelectState = SelectState.Highlighted;
-        TriggerWhenObjectIsHighlighted.Invoke();
+        triggerWhenObjectIsHighlighted.Invoke();
+
+        _outline.SetActive(true); 
     }
 
     public void UnhighlightObject()
@@ -37,11 +53,12 @@ public class SelectScript : MonoBehaviour
         currentSelectState = SelectState.Unselected;
 
         // Unhighlight Object
-        if(TriggerWhenObjectIsUnhighlighted != null)
+        if(triggerWhenObjectIsNoLongerHighlighted != null)
         {
-            TriggerWhenObjectIsUnhighlighted.Invoke();
+            triggerWhenObjectIsNoLongerHighlighted.Invoke();
 
         }
+        _outline.SetActive(false);
     }
 
     public void SelectObject()
@@ -53,7 +70,7 @@ public class SelectScript : MonoBehaviour
         currentSelectState = SelectState.Selected;
 
         //Invoke "SelectObj()" Event in Editor
-        TriggerWhenObjectIsSelected.Invoke();
+        triggerWhenObjectIsSelected.Invoke();
         
     }
 
@@ -66,6 +83,13 @@ public class SelectScript : MonoBehaviour
         currentSelectState = SelectState.Unselected;
 
         // Unselect Object
-        TriggerWhenObjectIsUnselected.Invoke();
+        triggerWhenObjectIsUnselected.Invoke();
+        
+        _outline.SetActive(false);
+    }
+
+    public void SetOutline(GameObject outlineModel)
+    {
+        _outline = outlineModel; 
     }
 }
